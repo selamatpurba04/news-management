@@ -1,4 +1,4 @@
-# News Management Kumparan
+# News Management
 
 A simple management news, there are the components to build it, such as :
 
