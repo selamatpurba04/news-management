@@ -8,6 +8,10 @@ import Topic from '@/components/Topic'
 import EditTopic from '@/components/EditTopic'
 import CreateTopic from '@/components/CreateTopic'
 
+import Status from '@/components/Status'
+import EditStatus from '@/components/EditStatus'
+import CreateStatus from '@/components/CreateStatus'
+
 Vue.use(Router)
 
 export default new Router({
@@ -41,6 +45,21 @@ export default new Router({
       path: '/topic/:id',
       name: 'EditTopic',
       component : EditTopic
+    },
+    {
+      path: '/status',
+      name: 'Status',
+      component : Status
+    },
+    {
+      path: '/status/create',
+      name: 'CreateStatus',
+      component : CreateStatus 
+    },
+    {
+      path: '/status/:id',
+      name: 'EditStatus',
+      component : EditStatus 
     }
   ],
   mode: 'history'

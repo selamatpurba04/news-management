@@ -1,8 +1,11 @@
 <template>
   <div class="CreateNews">
-    <div class="py-3 text-center">
-      <h2>Edit Status News</h2>
-    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a href="#" @click="redirect">Status</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+      </ol>
+    </nav>
     <form @submit="checkForm">
       <div class="row">
         
@@ -42,11 +45,10 @@
   </div>
 </template>
 
-
 <script>
-import StatusNewsServices from '@/services/StatusNewsServices'
+import StatusServices from '@/services/StatusServices'
 export default {
-  name: 'EditStatusNews',
+  name: 'EditStatus',
   data () {
     return {
       title: '',
@@ -56,28 +58,28 @@ export default {
     }
   },
   mounted () {
-    this.getStatusNewsById()
+    this.getStatusById()
   },
   methods: {
-    async updateStatusNews () {
-      await StatusNewsServices.updateStatusNews({
+    async updateStatus () {
+      await StatusServices.updateStatus({
         id: this.$route.params.id,
         title: this.title
       })
-      this.$router.push({ name: 'StatusNews' })
+      this.$router.push({ name: 'Status' })
     },
-    async getStatusNewsById () {
-      const response = await StatusNewsServices.getStatusNewsById({
+    async getStatusById () {
+      const response = await StatusServices.getStatusById({
         id: this.$route.params.id
       })
-      this.title = response.data.statusNews.title
+      this.title = response.data.title
     },
     redirect () {
-      this.$router.push({ name: 'StatusNews' })
+      this.$router.push({ name: 'Status' })
     },
     checkForm:function(e) {
       if(this.title){
-        this.updateStatusNews()
+        this.updateStatus()
       }
       this.errors = [];
       if(!this.title) this.errors.push("Title required.")

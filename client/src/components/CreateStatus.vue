@@ -1,8 +1,11 @@
 <template>
   <div class="CreateNews">
-    <div class="py-3 text-center">
-      <h2>Create Status News</h2>
-    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a href="#" @click="redirect">Status</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create</li>
+      </ol>
+    </nav>
     <form @submit="checkForm">
       <div class="row">
         <div class="col-md-8 order-md-1">
@@ -40,9 +43,9 @@
 
 
 <script>
-import StatusNewsServices from '@/services/StatusNewsServices'
+import StatusServices from '@/services/StatusServices'
 export default {
-  name: 'CreateStatusNews',
+  name: 'CreateStatus',
   data () {
     return {
       title: '',
@@ -51,18 +54,18 @@ export default {
     }
   },
   methods: {
-    async submitStatusNews () {
-      await StatusNewsServices.submitStatusNews({
+    async submitStatus () {
+      await StatusServices.submitStatus({
         title: this.title
       })
-      this.$router.push({ name: 'StatusNews' })
+      this.$router.push({ name: 'Status' })
     },
     async redirect () {
-      this.$router.push({ name: 'StatusNews' })
+      this.$router.push({ name: 'Status' })
     },
     checkForm:function(e) {
       if(this.title){
-        this.submitStatusNews()
+        this.submitStatus()
       }
       this.errors = [];
       if(!this.title) this.errors.push("Title required.")

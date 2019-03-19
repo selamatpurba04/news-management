@@ -13,7 +13,7 @@ const morgan = require('morgan')
 
 var News = require("../models/news")
 var Topic = require("../models/topic")
-var StatusNews = require("../models/statusNews")
+var Status = require("../models/status")
 
 const app = express()
 app.use(morgan('combined'))
@@ -237,27 +237,27 @@ app.delete('/topic/:id', (req, res) => {
 })
 // ---- end region topic
 
-// ---- begin region statusNews
+// ---- begin region status
 
-// get all statusNews
-app.get('/statusNews', (req, res) => {
-  StatusNews.find({}, 'title',  (error, statusNews) => {
+// get all status
+app.get('/status', (req, res) => {
+  Status.find({}, 'title',  (error, status) => {
     if (error) { console.error(error) }
     res.send({
-      statusNews: statusNews
+      status: status
     })
   }).sort({_id:-1})
 })
 
-// Create a statusNews
-app.post('/statusNews', (req, res) => {
+// Create a status
+app.post('/status', (req, res) => {
   var db = req.db
   var title = req.body.title
-  var new_statusNews = new StatusNews({
+  var new_status = new Status({
     title: title
   })
 
-  new_statusNews.save( (error) => {
+  new_status.save( (error) => {
     if (error) {
       console.log(error)
     }
@@ -268,14 +268,26 @@ app.post('/statusNews', (req, res) => {
   })
 })
 
-// Update a statusNews
-app.put('/statusNews/:id', (req, res) => {
+//get status by id
+app.get('/status/:id', (req, res) => {  
   var db = req.db
-  StatusNews.findById(req.params.id, 'title',  (error, statusNews) => {
+  Status.findById(req.params.id)
+  .exec( (error, s) => {
+    if (error) { console.error(error) }
+    res.send({
+      title: s.title
+    })
+  })
+})
+
+// Update a status
+app.put('/status/:id', (req, res) => {
+  var db = req.db
+  Status.findById(req.params.id, 'title',  (error, status) => {
     if (error) { console.error(error) }
 
-    statusNews.title = req.body.title
-    statusNews.save( (error) => {
+    status.title = req.body.title
+    status.save( (error) => {
       if (error) {
         console.log(error)
       }
@@ -286,12 +298,12 @@ app.put('/statusNews/:id', (req, res) => {
   })
 })
 
-// Delete a statusNews
-app.delete('/statusNews/:id', (req, res) => {
+// Delete a status
+app.delete('/status/:id', (req, res) => {
   var db = req.db
-  StatusNews.remove({
+  Status.remove({
     _id: req.params.id
-  }, function(err, statusNews){
+  }, function(err, status){
     if (err)
       res.send(err)
     res.send({
@@ -299,7 +311,7 @@ app.delete('/statusNews/:id', (req, res) => {
     })
   })
 })
-// ---- end region statusNews
+// ---- end region status
 
 console.log('Server is running at ' + ( process.env.PORT || 8082) )
 app.listen(process.env.PORT || 8082)

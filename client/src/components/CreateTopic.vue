@@ -1,8 +1,11 @@
 <template>
   <div class="CreateNews">
-    <div class="py-3 text-center">
-      <h2>Create Topic</h2>
-    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a href="#" @click="redirect">Topic</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create</li>
+      </ol>
+    </nav>
     <form @submit="checkForm">
       <div class="row">
         <div class="col-md-8 order-md-1">

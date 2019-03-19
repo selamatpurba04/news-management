@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var NewsSchema = new Schema({
   title: String,
   description: String,
-  idStatus: { type: Schema.Types.ObjectId, ref: 'statusNews' },
+  idStatus: { type: Schema.Types.ObjectId, ref: 'Status' },
   idTopics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }]
 });
 

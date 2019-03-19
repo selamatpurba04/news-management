@@ -1,11 +1,13 @@
 <template>
   <div class="news">
-    <div class="py-3 text-center">
-      <h2>Topic</h2>
-    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Topic</li>
+      </ol>
+    </nav>
     <div class="row mb-3">
       <div class="col-md-6">
-        <router-link v-bind:to="{ name: 'CreateTopic' }" class="btn btn-sm">Add Topic</router-link>
+        <router-link v-bind:to="{ name: 'CreateTopic' }" class="btn btn-sm">Add</router-link>
       </div>
     </div>
     <table class="table">

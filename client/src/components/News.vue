@@ -1,11 +1,13 @@
 <template>
   <div class="news">
-    <div class="py-3 text-center">
-      <h2>News</h2>
-    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">News</li>
+      </ol>
+    </nav>
     <div class="row mb-3">
       <div class="col-md-6">
-        <router-link v-bind:to="{ name: 'CreateNews' }" class="btn btn-sm">Add News</router-link>
+        <router-link v-bind:to="{ name: 'CreateNews' }" class="btn btn-sm">Add</router-link>
       </div>
       <div class="col-md-3">
         <select v-on:change="filterNews" v-model="idTopics" class="form-control">
@@ -16,7 +18,7 @@
       <div class="col-md-3">
         <select v-on:change="filterNews" v-model="idStatus" class="form-control">
           <option value="">Filter Status</option>
-          <option v-for="s in statusNews" :value="s._id">{{ s.title }}</option>
+          <option v-for="s in status" :value="s._id">{{ s.title }}</option>
         </select>
       </div>
     </div>
@@ -43,7 +45,7 @@
 <script>
 import NewsServices from '@/services/NewsServices'
 import TopicServices from '@/services/TopicServices'
-import StatusNewsServices from '@/services/StatusNewsServices'
+import StatusServices from '@/services/StatusServices'
 
 export default {
   name: 'News',
@@ -51,7 +53,7 @@ export default {
     return {
       news: [],
       Topics: [],
-      statusNews: [],
+      status: [],
       idStatus: '',
       idTopics: ''
     }
@@ -59,7 +61,7 @@ export default {
   mounted () {
     this.getNews()
     this.getTopics()
-    this.getStatusNews()
+    this.getStatus()
   },
   methods: {
     async getNews () {
@@ -76,9 +78,9 @@ export default {
       const response = await TopicServices.fetchTopic()
       this.Topics = response.data.topic
     },
-    async getStatusNews () {
-      const response = await StatusNewsServices.fetchStatusNews()
-      this.statusNews = response.data.statusNews
+    async getStatus () {
+      const response = await StatusServices.fetchStatus()
+      this.status = response.data.status
     },
     async filterNews () {
       const response = await NewsServices.filterNews({
